@@ -148,16 +148,20 @@ public class BreakKey {
      * @param n
      * @return pgcd
      */
-    public static double average(int[] n){
-        double somme = 0 ;
+    public static double[] average(int[] n, int[] n1){
+        double somme1 = 0 ;
+        double somme2 = 0 ;
 
         for (int i = 0; i < n.length; i++){
-            somme += n[i];
+            somme1 += n[i];
+            somme2 += n1[i];
         }
 
-        return somme / n.length;
+        double avg1 = somme1/n.length;
+        double avg2 = somme2 / n1.length;
+        double[] res = {avg1, avg2};
+        return res;
     }
-
 
     /**
      * calcule la distance de Pearson entre 2 lignes
@@ -170,14 +174,13 @@ public class BreakKey {
         double sommeUn = 0;
         double sommeDeux = 0;
         double sommeTrois = 0;
-        double avgX = average(x);
-        double avgY = average(y);
+        double[] avg = average(x, y);
 
 
         for (int i = 0; i < x.length; i++){
-            sommeUn   += (x[i] - avgX) * (y[i] - avgY);
-            sommeDeux += Math.pow(x[i] - avgX, 2);
-            sommeTrois += Math.pow(y[i] - avgY, 2);
+            sommeUn   += (x[i] - avg[0]) * (y[i] - avg[1]);
+            sommeDeux += Math.pow(x[i] - avg[0], 2);
+            sommeTrois += Math.pow(y[i] - avg[1], 2);
         }
 
         return sommeUn /(Math.sqrt(sommeDeux)* Math.sqrt(sommeTrois));
